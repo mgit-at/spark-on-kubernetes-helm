@@ -39,7 +39,7 @@ spec:
           protocol: TCP
         resources:
 {{ toYaml .Values.resources | indent 10 }}
-        command:
+        args:
         - "/bin/sh"
         - "-c"
         - >
