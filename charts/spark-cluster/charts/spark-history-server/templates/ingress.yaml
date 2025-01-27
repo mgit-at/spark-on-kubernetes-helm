@@ -1,6 +1,6 @@
 {{- if .Values.ingress.enabled -}}
 {{- $fullname := include "spark-history-server.fullname" . -}}
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: {{ $fullname }}
@@ -21,8 +21,11 @@ spec:
         paths:
         - path: {{ $.Values.ingress.path }}
           backend:
-            serviceName: {{ $fullname }}
-            servicePort: 80
+            service:
+              name: {{ $fullname }}
+              port:
+                number: 80
+          pathType: {{ $.Values.ingress.pathType }}
     {{- end -}}
   {{- if .Values.ingress.tls }}
   tls:
