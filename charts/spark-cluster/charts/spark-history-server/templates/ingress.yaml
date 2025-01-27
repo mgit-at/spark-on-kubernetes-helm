@@ -21,9 +21,11 @@ spec:
         paths:
         - path: {{ $.Values.ingress.path }}
           backend:
-            serviceName: {{ $fullname }}
-            servicePort: 80
-          pathType: {{ .Values.ingress.pathType }}
+            service:
+              name: {{ $fullname }}
+              port:
+                number: 80
+          pathType: {{ $.Values.ingress.pathType }}
     {{- end -}}
   {{- if .Values.ingress.tls }}
   tls:
